@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pengaduan Warga</title>
+    <style>
+        /* Umum */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Container utama */
+        .container {
+            width: 90%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        /* Kartu form */
+        .card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            transition: 0.3s ease;
+        }
+
+        .card h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+
+        /* Form style */
+        form label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            color: #333;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+            font-size: 14px;
+            margin-bottom: 20px;
+            transition: 0.2s border ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border: 1px solid #3498db;
+            outline: none;
+        }
+
+        /* Tombol submit */
+        button[type="submit"] {
+            background-color: #27ae60;
+            color: white;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #1e8449;
+        }
+
+        /* Tombol kembali */
+        .back-btn {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Responsif */
+        @media (max-width: 480px) {
+            .card {
+                padding: 20px;
+            }
+
+            input,
+            select,
+            textarea,
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="card">
+            <h2>Form Pengaduan Warga</h2>
+
+            <form id="formPengaduan">
+                <label for="kategori">Kategori Pengaduan:</label>
+                <select id="kategori" required>
+                    <option value="">-- Pilih Kategori --</option>
+                    <option value="Pelayanan Publik">Pelayanan Publik</option>
+                    <option value="Infrastruktur Desa">Infrastruktur Desa</option>
+                    <option value="Masalah Sosial">Masalah Sosial</option>
+                    <option value="Lingkungan">Lingkungan</option>
+                    <option value="Lain-lain">Lain-lain</option>
+                </select>
+
+                <label for="deskripsi">Deskripsi Pengaduan:</label>
+                <textarea id="deskripsi" rows="5" required></textarea>
+
+                <button type="submit">Kirim Pengaduan</button>
+            </form>
+
+            <a href="dashboard.html" class="back-btn">← Kembali ke Beranda</a>
+        </div>
+    </div>
+
+    <!-- Firebase Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAEyyQvtGV9UtFFASxhKFhtUu5WaCY-7YM",
+            authDomain: "web-menajemen-keuangan.firebaseapp.com",
+            databaseURL: "https://web-menajemen-keuangan-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "web-menajemen-keuangan",
+            storageBucket: "web-menajemen-keuangan.appspot.com",
+            messagingSenderId: "701529272865",
+            appId: "1:701529272865:web:3acaab7a2931905f152960",
+            measurementId: "G-G226XMT0TC"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        const form = document.getElementById("formPengaduan");
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const kategori = document.getElementById("kategori").value;
+            const deskripsi = document.getElementById("deskripsi").value;
+
+            const pengaduanRef = ref(database, 'pengaduan');
+            const newPengaduanRef = push(pengaduanRef);
+
+            set(newPengaduanRef, {
+                kategori: kategori,
+                deskripsi: deskripsi,
+                timestamp: new Date().toISOString()
+            })
+                .then(() => {
+                    alert("Pengaduan berhasil dikirim!");
+                    window.location.href = "dashboard.html";
+                })
+                .catch((error) => {
+                    alert("Gagal mengirim pengaduan: " + error.message);
+                });
+        });
+    </script>
+
+</body>
+
+</html>

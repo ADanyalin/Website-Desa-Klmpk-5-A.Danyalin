@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layanan Kartu Keluarga</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .service-list {
+            margin-bottom: 30px;
+        }
+        .service-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid #3498db;
+            color: #3498db;
+        }
+        .btn-outline:hover {
+            background-color: #f8f9fa;
+        }
+        .btn-primary {
+            background-color: #3498db;
+        }
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        .btn-success {
+            background-color: #28a745;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        .hidden {
+            display: none;
+        }
+        .notification {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .button-group {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-actions">
+            <h1>Kartu Keluarga</h1>
+            <button class="btn btn-secondary" onclick="window.location.href='dashboard.html'">
+                <i class="fas fa-home"></i> Kembali ke Beranda
+            </button>
+        </div>
+        
+        <div id="notification" class="notification"></div>
+        
+        <div class="service-list">
+            <h2>Layanan terkait Kartu Keluarga:</h2>
+            
+            <div class="service-item">
+                <span>Pembuatan KK Baru</span>
+                <div>
+                    <button class="btn btn-outline" onclick="showDetail('kk_baru')">
+                        <i class="fas fa-info-circle"></i> Detail
+                    </button>
+                    <button class="btn btn-primary" onclick="selectService('kk_baru')">
+                        <i class="fas fa-pen"></i> Ajukan
+                    </button>
+                </div>
+            </div>
+            
+            <div class="service-item">
+                <span>Perubahan Data KK</span>
+                <div>
+                    <button class="btn btn-outline" onclick="showDetail('perubahan_data')">
+                        <i class="fas fa-info-circle"></i> Detail
+                    </button>
+                    <button class="btn btn-primary" onclick="selectService('perubahan_data')">
+                        <i class="fas fa-pen"></i> Ajukan
+                    </button>
+                </div>
+            </div>
+            
+            <div class="service-item">
+                <span>Pemisahan KK</span>
+                <div>
+                    <button class="btn btn-outline" onclick="showDetail('pemisahan_kk')">
+                        <i class="fas fa-info-circle"></i> Detail
+                    </button>
+                    <button class="btn btn-primary" onclick="selectService('pemisahan_kk')">
+                        <i class="fas fa-pen"></i> Ajukan
+                    </button>
+                </div>
+            </div>
+            
+            <div class="service-item">
+                <span>Penggantian KK Hilang/Rusak</span>
+                <div>
+                    <button class="btn btn-outline" onclick="showDetail('penggantian_kk')">
+                        <i class="fas fa-info-circle"></i> Detail
+                    </button>
+                    <button class="btn btn-primary" onclick="selectService('penggantian_kk')">
+                        <i class="fas fa-pen"></i> Ajukan
+                    </button>
+                </div>
+            </div>
+            
+            <div class="service-item">
+                <span>Penambahan Anggota Keluarga</span>
+                <div>
+                    <button class="btn btn-outline" onclick="showDetail('penambahan_anggota')">
+                        <i class="fas fa-info-circle"></i> Detail
+                    </button>
+                    <button class="btn btn-primary" onclick="selectService('penambahan_anggota')">
+                        <i class="fas fa-pen"></i> Ajukan
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Form untuk mengajukan layanan KK -->
+        <div id="serviceForm" class="hidden">
+            <div class="header-actions">
+                <h2 id="formTitle">Form Pengajuan</h2>
+                <button class="btn btn-secondary" onclick="cancelForm()">
+                    <i class="fas fa-times"></i> Tutup Form
+                </button>
+            </div>
+            
+            <div class="form-group">
+                <label for="no_kk">Nomor Kartu Keluarga (KK):</label>
+                <input type="text" id="no_kk">
+            </div>
+            
+            <div class="form-group">
+                <label for="nama_kepala_keluarga">Nama Kepala Keluarga:</label>
+                <input type="text" id="nama_kepala_keluarga" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="alamat">Alamat Lengkap:</label>
+                <textarea id="alamat" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="rt_rw">RT/RW:</label>
+                <input type="text" id="rt_rw" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="kelurahan">Kelurahan/Desa:</label>
+                <input type="text" id="kelurahan" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="kecamatan">Kecamatan:</label>
+                <input type="text" id="kecamatan" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="kabupaten">Kabupaten/Kota:</label>
+                <input type="text" id="kabupaten" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="kode_pos">Kode Pos:</label>
+                <input type="text" id="kode_pos">
+            </div>
+            
+            <div class="form-group">
+                <label for="provinsi">Provinsi:</label>
+                <input type="text" id="provinsi" required>
+            </div>
+            
+            <div id="additionalFields"></div>
+            
+            <div class="form-group">
+                <label for="keterangan">Keterangan Tambahan:</label>
+                <textarea id="keterangan"></textarea>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-outline" onclick="window.location.href='dashboard.html'">
+                    <i class="fas fa-home"></i> Kembali ke Beranda
+                </button>
+                <button class="btn btn-success" onclick="submitKKForm()">
+                    <i class="fas fa-paper-plane"></i> Kirim Pengajuan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script>
+        // Inisialisasi Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAEyyQvtGV9UtFFASxhKFhtUu5WaCY-7YM",
+            authDomain: "web-menajemen-keuangan.firebaseapp.com",
+            databaseURL: "https://web-menajemen-keuangan-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "web-menajemen-keuangan",
+            storageBucket: "web-menajemen-keuangan.firebasestorage.app",
+            messagingSenderId: "701529272865",
+            appId: "1:701529272865:web:3acaab7a2931905f152960",
+            measurementId: "G-G226XMT0TC"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        
+        let selectedService = '';
+        
+        // Fungsi untuk menampilkan detail layanan
+        function showDetail(serviceType) {
+            let detailMessage = '';
+            
+            switch(serviceType) {
+                case 'kk_baru':
+                    detailMessage = 'Layanan untuk membuat Kartu Keluarga baru bagi keluarga yang belum memiliki KK.';
+                    break;
+                case 'perubahan_data':
+                    detailMessage = 'Layanan untuk mengubah data pada Kartu Keluarga yang sudah ada.';
+                    break;
+                case 'pemisahan_kk':
+                    detailMessage = 'Layanan untuk memisahkan Kartu Keluarga menjadi dua KK terpisah.';
+                    break;
+                case 'penggantian_kk':
+                    detailMessage = 'Layanan untuk mengganti Kartu Keluarga yang hilang atau rusak.';
+                    break;
+                case 'penambahan_anggota':
+                    detailMessage = 'Layanan untuk menambahkan anggota keluarga baru ke dalam KK.';
+                    break;
+            }
+            
+            alert(detailMessage);
+        }
+        
+        // Fungsi untuk memilih layanan
+        function selectService(serviceType) {
+            selectedService = serviceType;
+            document.getElementById('serviceForm').classList.remove('hidden');
+            
+            // Set judul form berdasarkan layanan yang dipilih
+            let formTitle = '';
+            let additionalFields = '';
+            
+            switch(serviceType) {
+                case 'kk_baru':
+                    formTitle = 'Pembuatan KK Baru';
+                    additionalFields = `
+                        <div class="form-group">
+                            <label for="surat_pengantar">Nomor Surat Pengantar RT/RW:</label>
+                            <input type="text" id="surat_pengantar" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tanggal_pengajuan">Tanggal Pengajuan:</label>
+                            <input type="date" id="tanggal_pengajuan" required>
+                        </div>
+                    `;
+                    break;
+                case 'perubahan_data':
+                    formTitle = 'Perubahan Data KK';
+                    additionalFields = `
+                        <div class="form-group">
+                            <label for="data_yang_diubah">Data yang Akan Diubah:</label>
+                            <textarea id="data_yang_diubah" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="alasan_perubahan">Alasan Perubahan:</label>
+                            <textarea id="alasan_perubahan" required></textarea>
+                        </div>
+                    `;
+                    break;
+                case 'pemisahan_kk':
+                    formTitle = 'Pemisahan KK';
+                    additionalFields = `
+                        <div class="form-group">
+                            <label for="nama_kepala_keluarga_baru">Nama Kepala Keluarga Baru:</label>
+                            <input type="text" id="nama_kepala_keluarga_baru" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="anggota_yang_dipisahkan">Anggota Keluarga yang Akan Dipisahkan:</label>
+                            <textarea id="anggota_yang_dipisahkan" required></textarea>
+                        </div>
+                    `;
+                    break;
+                case 'penggantian_kk':
+                    formTitle = 'Penggantian KK Hilang/Rusak';
+                    additionalFields = `
+                        <div class="form-group">
+                            <label for="alasan_penggantian">Alasan Penggantian:</label>
+                            <select id="alasan_penggantian" required>
+                                <option value="">-- Pilih Alasan --</option>
+                                <option value="Hilang">Hilang</option>
+                                <option value="Rusak">Rusak</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="surat_kehilangan">Nomor Surat Keterangan Kehilangan (jika hilang):</label>
+                            <input type="text" id="surat_kehilangan">
+                        </div>
+                    `;
+                    break;
+                case 'penambahan_anggota':
+                    formTitle = 'Penambahan Anggota Keluarga';
+                    additionalFields = `
+                        <div class="form-group">
+                            <label for="nama_anggota_baru">Nama Anggota Baru:</label>
+                            <input type="text" id="nama_anggota_baru" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hubungan_keluarga">Hubungan dengan Kepala Keluarga:</label>
+                            <select id="hubungan_keluarga" required>
+                                <option value="">-- Pilih Hubungan --</option>
+                                <option value="Istri">Istri</option>
+                                <option value="Anak">Anak</option>
+                                <option value="Menantu">Menantu</option>
+                                <option value="Cucu">Cucu</option>
+                                <option value="Orang Tua">Orang Tua</option>
+                                <option value="Mertua">Mertua</option>
+                                <option value="Famili Lain">Famili Lain</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nik_anggota_baru">NIK Anggota Baru:</label>
+                            <input type="text" id="nik_anggota_baru" required>
+                        </div>
+                    `;
+                    break;
+            }
+            
+            document.getElementById('formTitle').textContent = formTitle;
+            document.getElementById('additionalFields').innerHTML = additionalFields;
+            
+            // Scroll ke form
+            document.getElementById('serviceForm').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Fungsi untuk membatalkan pengisian form
+        function cancelForm() {
+            document.getElementById('serviceForm').classList.add('hidden');
+            selectedService = '';
+        }
+        
+        // Fungsi untuk mengirim form ke Firebase
+        function submitKKForm() {
+            // Validasi form
+            const requiredFields = document.querySelectorAll('#serviceForm [required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = 'red';
+                    isValid = false;
+                } else {
+                    field.style.borderColor = '#ddd';
+                }
+            });
+            
+            if (!isValid) {
+                showNotification('Harap lengkapi semua field yang wajib diisi', 'error');
+                return;
+            }
+            
+            // Kumpulkan data form
+            const formData = {
+                jenis_layanan: selectedService,
+                no_kk: document.getElementById('no_kk').value,
+                nama_kepala_keluarga: document.getElementById('nama_kepala_keluarga').value,
+                alamat: document.getElementById('alamat').value,
+                rt_rw: document.getElementById('rt_rw').value,
+                kelurahan: document.getElementById('kelurahan').value,
+                kecamatan: document.getElementById('kecamatan').value,
+                kabupaten: document.getElementById('kabupaten').value,
+                kode_pos: document.getElementById('kode_pos').value,
+                provinsi: document.getElementById('provinsi').value,
+                keterangan: document.getElementById('keterangan').value,
+                tanggal_pengajuan: new Date().toISOString(),
+                status: 'menunggu'
+            };
+            
+            // Tambahkan data spesifik berdasarkan layanan
+            switch(selectedService) {
+                case 'kk_baru':
+                    formData.surat_pengantar = document.getElementById('surat_pengantar').value;
+                    formData.tanggal_pengajuan = document.getElementById('tanggal_pengajuan').value;
+                    break;
+                case 'perubahan_data':
+                    formData.data_yang_diubah = document.getElementById('data_yang_diubah').value;
+                    formData.alasan_perubahan = document.getElementById('alasan_perubahan').value;
+                    break;
+                case 'pemisahan_kk':
+                    formData.nama_kepala_keluarga_baru = document.getElementById('nama_kepala_keluarga_baru').value;
+                    formData.anggota_yang_dipisahkan = document.getElementById('anggota_yang_dipisahkan').value;
+                    break;
+                case 'penggantian_kk':
+                    formData.alasan_penggantian = document.getElementById('alasan_penggantian').value;
+                    formData.surat_kehilangan = document.getElementById('surat_kehilangan').value;
+                    break;
+                case 'penambahan_anggota':
+                    formData.nama_anggota_baru = document.getElementById('nama_anggota_baru').value;
+                    formData.hubungan_keluarga = document.getElementById('hubungan_keluarga').value;
+                    formData.nik_anggota_baru = document.getElementById('nik_anggota_baru').value;
+                    break;
+            }
+            
+            // Simpan ke Firebase Realtime Database
+            const newKKRequestRef = database.ref('kartu_keluarga').push();
+            newKKRequestRef.set(formData)
+                .then(() => {
+                    showNotification('Pengajuan KK berhasil dikirim! Anda akan diarahkan ke beranda...', 'success');
+                    // Redirect ke dashboard setelah 2 detik
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 2000);
+                })
+                .catch(error => {
+                    showNotification('Gagal mengirim pengajuan: ' + error.message, 'error');
+                });
+        }
+        
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification ' + type;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

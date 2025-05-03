@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form Bantuan Sosial</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f5f9;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #1e293b;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #submitBtn {
+      background-color: #10b981;
+      color: white;
+    }
+
+    #backBtn {
+      background-color: #64748b;
+      color: white;
+      margin-top: 10px;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Pendaftaran Bantuan Sosial</h2>
+    <form id="bantuanForm">
+      <label>Nama Lengkap:</label>
+      <input type="text" id="nama" required>
+
+      <label>NIK:</label>
+      <input type="text" id="nik" maxlength="16" required>
+      <div id="nikError" class="error"></div>
+
+      <label>Jenis Bantuan:</label>
+      <select id="jenisBantuan" required>
+        <option value="">-- Pilih Bantuan --</option>
+        <option value="PKH">PKH (Program Keluarga Harapan)</option>
+        <option value="BLT">BLT (Bantuan Langsung Tunai)</option>
+        <option value="BPNT">BPNT (Bantuan Pangan Non Tunai)</option>
+        <option value="Pendidikan">Bantuan Pendidikan</option>
+        <option value="UMKM">Bantuan UMKM</option>
+      </select>
+
+      <label>Alamat:</label>
+      <textarea id="alamat" rows="3" required></textarea>
+
+      <button type="submit" id="submitBtn">Kirim</button>
+      <button type="button" id="backBtn" onclick="window.location.href='dashboard.html'">Kembali ke Beranda</button>
+    </form>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import {
+      getDatabase,
+      ref,
+      push,
+      set
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAEyyQvtGV9UtFFASxhKFhtUu5WaCY-7YM",
+      authDomain: "web-menajemen-keuangan.firebaseapp.com",
+      databaseURL: "https://web-menajemen-keuangan-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "web-menajemen-keuangan",
+      storageBucket: "web-menajemen-keuangan.appspot.com",
+      messagingSenderId: "701529272865",
+      appId: "1:701529272865:web:3acaab7a2931905f152960",
+      measurementId: "G-G226XMT0TC"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    const form = document.getElementById("bantuanForm");
+    const nikInput = document.getElementById("nik");
+    const nikError = document.getElementById("nikError");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      // Validasi NIK
+      const nik = nikInput.value.trim();
+      if (!/^\d{16}$/.test(nik)) {
+        nikError.textContent = "NIK harus terdiri dari 16 digit angka.";
+        return;
+      } else {
+        nikError.textContent = "";
+      }
+
+      const nama = document.getElementById("nama").value;
+      const jenis = document.getElementById("jenisBantuan").value;
+      const alamat = document.getElementById("alamat").value;
+
+      const bantuanRef = ref(database, 'bantuan_sosial');
+      const newDataRef = push(bantuanRef);
+
+      await set(newDataRef, {
+        nama: nama,
+        nik: nik,
+        jenisBantuan: jenis,
+        alamat: alamat,
+        timestamp: Date.now()
+      });
+
+      alert("Data berhasil dikirim!");
+      window.location.href = "dashboard.html";
+    });
+  </script>
+</body>
+</html>

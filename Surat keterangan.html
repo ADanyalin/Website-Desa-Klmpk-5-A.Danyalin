@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Surat Keterangan Kecamatan</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .btn-secondary {
+            background-color: #95a5a6;
+        }
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+        .hidden {
+            display: none;
+        }
+        .letter-preview {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            white-space: pre-line;
+        }
+        .tab {
+            display: inline-block;
+            padding: 10px 15px;
+            cursor: pointer;
+            background-color: #eee;
+            margin-right: 5px;
+            border-radius: 4px 4px 0 0;
+        }
+        .tab.active {
+            background-color: #3498db;
+            color: white;
+        }
+        .tab-content {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 0 0 4px 4px;
+            margin-top: -1px;
+        }
+        .notification {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .button-group {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Form Surat Keterangan Desa</h1>
+        
+        <div id="notification" class="notification"></div>
+        
+        <div>
+            <div class="tab active" onclick="openTab('letterType')">Pilih Jenis Surat</div>
+            <div class="tab" onclick="openTab('applicantData')">Data Pemohon</div>
+            <div class="tab" onclick="openTab('letterContent')">Isi Surat</div>
+            <div class="tab" onclick="openTab('preview')">Pratinjau</div>
+        </div>
+        
+        <!-- Tab 1: Pilih Jenis Surat -->
+        <div id="letterType" class="tab-content">
+            <div class="form-group">
+                <label for="letterCategory">Jenis Surat Keterangan:</label>
+                <select id="letterCategory" onchange="showSpecificFields()">
+                    <option value="">-- Pilih Jenis Surat --</option>
+                    <option value="domisili">Surat Keterangan Domisili</option>
+                    <option value="tidak_mampu">Surat Keterangan Tidak Mampu</option>
+                    <option value="usaha">Surat Keterangan Usaha</option>
+                    <option value="kematian">Surat Keterangan Kematian</option>
+                    <option value="belum_menikah">Surat Keterangan Belum Menikah</option>
+                </select>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-secondary" onclick="window.location.href='dashboard.html'">Kembali ke Beranda</button>
+                <button onclick="nextTab('applicantData')">Lanjut</button>
+            </div>
+        </div>
+        
+        <!-- Tab 2: Data Pemohon -->
+        <div id="applicantData" class="tab-content hidden">
+            <div class="form-group">
+                <label for="nama">Nama Lengkap:</label>
+                <input type="text" id="nama" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="nik">NIK:</label>
+                <input type="text" id="nik" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="tempat_lahir">Tempat Lahir:</label>
+                <input type="text" id="tempat_lahir" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="tanggal_lahir">Tanggal Lahir:</label>
+                <input type="date" id="tanggal_lahir" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="jenis_kelamin">Jenis Kelamin:</label>
+                <select id="jenis_kelamin" required>
+                    <option value="">-- Pilih --</option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="alamat">Alamat Lengkap:</label>
+                <textarea id="alamat" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="pekerjaan">Pekerjaan:</label>
+                <input type="text" id="pekerjaan" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="agama">Agama:</label>
+                <select id="agama" required>
+                    <option value="">-- Pilih --</option>
+                    <option value="Islam">Islam</option>
+                    <option value="Kristen">Kristen</option>
+                    <option value="Katolik">Katolik</option>
+                    <option value="Hindu">Hindu</option>
+                    <option value="Buddha">Buddha</option>
+                    <option value="Konghucu">Konghucu</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="no_hp">Nomor HP:</label>
+                <input type="text" id="no_hp" required>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-secondary" onclick="window.location.href='dashboard.html'">Kembali ke Beranda</button>
+                <button class="btn-secondary" onclick="prevTab('letterType')">Kembali</button>
+                <button onclick="nextTab('letterContent')">Lanjut</button>
+            </div>
+        </div>
+        
+        <!-- Tab 3: Isi Surat -->
+        <div id="letterContent" class="tab-content hidden">
+            <!-- Field umum untuk semua surat -->
+            <div class="form-group">
+                <label for="keperluan">Keperluan Surat:</label>
+                <textarea id="keperluan" required></textarea>
+            </div>
+            
+            <!-- Field spesifik akan ditampilkan di sini -->
+            <div id="specificFields"></div>
+            
+            <div class="button-group">
+                <button class="btn-secondary" onclick="window.location.href='dashboard.html'">Kembali ke Beranda</button>
+                <button class="btn-secondary" onclick="prevTab('applicantData')">Kembali</button>
+                <button onclick="nextTab('preview')">Lanjut</button>
+            </div>
+        </div>
+        
+        <!-- Tab 4: Pratinjau -->
+        <div id="preview" class="tab-content hidden">
+            <h2>Pratinjau Surat</h2>
+            <div id="letterPreview" class="letter-preview">
+                Pilih jenis surat dan isi form untuk melihat pratinjau.
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-secondary" onclick="window.location.href='dashboard.html'">Kembali ke Beranda</button>
+                <button class="btn-secondary" onclick="prevTab('letterContent')">Kembali</button>
+                <button onclick="submitLetter()">Ajukan Surat</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script>
+        // Inisialisasi Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAEyyQvtGV9UtFFASxhKFhtUu5WaCY-7YM",
+            authDomain: "web-menajemen-keuangan.firebaseapp.com",
+            databaseURL: "https://web-menajemen-keuangan-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "web-menajemen-keuangan",
+            storageBucket: "web-menajemen-keuangan.firebasestorage.app",
+            messagingSenderId: "701529272865",
+            appId: "1:701529272865:web:3acaab7a2931905f152960",
+            measurementId: "G-G226XMT0TC"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        
+        // Fungsi untuk berpindah tab
+        function openTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            document.getElementById(tabName).classList.remove('hidden');
+            
+            const tabButtons = document.querySelectorAll('.tab');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            event.currentTarget.classList.add('active');
+        }
+        
+        function nextTab(nextTabId) {
+            const currentTab = document.querySelector('.tab-content:not(.hidden)');
+            const nextTab = document.getElementById(nextTabId);
+            
+            // Validasi form sebelum lanjut
+            if (currentTab.id === 'letterType') {
+                const letterCategory = document.getElementById('letterCategory').value;
+                if (!letterCategory) {
+                    showNotification('Silakan pilih jenis surat terlebih dahulu', 'error');
+                    return;
+                }
+            } else if (currentTab.id === 'applicantData') {
+                // Validasi semua field wajib diisi
+                const requiredFields = currentTab.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        field.style.borderColor = 'red';
+                        isValid = false;
+                    } else {
+                        field.style.borderColor = '#ddd';
+                    }
+                });
+                
+                if (!isValid) {
+                    showNotification('Harap lengkapi semua data pemohon', 'error');
+                    return;
+                }
+            } else if (currentTab.id === 'letterContent') {
+                const keperluan = document.getElementById('keperluan').value;
+                if (!keperluan.trim()) {
+                    showNotification('Harap isi keperluan surat', 'error');
+                    return;
+                }
+            }
+            
+            // Jika semua valid, lanjut ke tab berikutnya
+            currentTab.classList.add('hidden');
+            nextTab.classList.remove('hidden');
+            
+            // Update tab aktif
+            const tabButtons = document.querySelectorAll('.tab');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.textContent.trim() === 'Pilih Jenis Surat' && nextTabId === 'letterType') {
+                    button.classList.add('active');
+                } else if (button.textContent.trim() === 'Data Pemohon' && nextTabId === 'applicantData') {
+                    button.classList.add('active');
+                } else if (button.textContent.trim() === 'Isi Surat' && nextTabId === 'letterContent') {
+                    button.classList.add('active');
+                } else if (button.textContent.trim() === 'Pratinjau' && nextTabId === 'preview') {
+                    button.classList.add('active');
+                }
+            });
+            
+            // Jika pindah ke tab preview, generate preview
+            if (nextTabId === 'preview') {
+                generatePreview();
+            }
+        }
+        
+        function prevTab(prevTabId) {
+            const currentTab = document.querySelector('.tab-content:not(.hidden)');
+            const prevTab = document.getElementById(prevTabId);
+            
+            currentTab.classList.add('hidden');
+            prevTab.classList.remove('hidden');
+            
+            // Update tab aktif
+            const tabButtons = document.querySelectorAll('.tab');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.textContent.trim() === 'Pilih Jenis Surat' && prevTabId === 'letterType') {
+                    button.classList.add('active');
+                } else if (button.textContent.trim() === 'Data Pemohon' && prevTabId === 'applicantData') {
+                    button.classList.add('active');
+                } else if (button.textContent.trim() === 'Isi Surat' && prevTabId === 'letterContent') {
+                    button.classList.add('active');
+                }
+            });
+        }
+        
+        // Fungsi untuk menampilkan field spesifik berdasarkan jenis surat
+        function showSpecificFields() {
+            const letterCategory = document.getElementById('letterCategory').value;
+            const specificFieldsDiv = document.getElementById('specificFields');
+            
+            // Kosongkan field spesifik sebelumnya
+            specificFieldsDiv.innerHTML = '';
+            
+            if (letterCategory === 'domisili') {
+                specificFieldsDiv.innerHTML = `
+                    <div class="form-group">
+                        <label for="alamat_domisili">Alamat Domisili Saat Ini:</label>
+                        <textarea id="alamat_domisili" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="lama_tinggal">Lama Tinggal (tahun):</label>
+                        <input type="number" id="lama_tinggal" required>
+                    </div>
+                `;
+            } else if (letterCategory === 'tidak_mampu') {
+                specificFieldsDiv.innerHTML = `
+                    <div class="form-group">
+                        <label for="penghasilan">Penghasilan per Bulan (Rp):</label>
+                        <input type="number" id="penghasilan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tanggungan">Jumlah Tanggungan Keluarga:</label>
+                        <input type="number" id="tanggungan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alasan">Alasan Permohonan:</label>
+                        <textarea id="alasan" required></textarea>
+                    </div>
+                `;
+            } else if (letterCategory === 'usaha') {
+                specificFieldsDiv.innerHTML = `
+                    <div class="form-group">
+                        <label for="nama_usaha">Nama Usaha:</label>
+                        <input type="text" id="nama_usaha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis_usaha">Jenis Usaha:</label>
+                        <input type="text" id="jenis_usaha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alamat_usaha">Alamat Usaha:</label>
+                        <textarea id="alamat_usaha" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="lama_usaha">Lama Usaha (tahun):</label>
+                        <input type="number" id="lama_usaha" required>
+                    </div>
+                `;
+            } else if (letterCategory === 'kematian') {
+                specificFieldsDiv.innerHTML = `
+                    <div class="form-group">
+                        <label for="nama_alm">Nama Almarhum/Almarhumah:</label>
+                        <input type="text" id="nama_alm" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hubungan">Hubungan dengan Pemohon:</label>
+                        <input type="text" id="hubungan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tgl_kematian">Tanggal Kematian:</label>
+                        <input type="date" id="tgl_kematian" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tempat_kematian">Tempat Kematian:</label>
+                        <input type="text" id="tempat_kematian" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="penyebab">Penyebab Kematian:</label>
+                        <input type="text" id="penyebab" required>
+                    </div>
+                `;
+            } else if (letterCategory === 'belum_menikah') {
+                specificFieldsDiv.innerHTML = `
+                    <div class="form-group">
+                        <label for="status_kawin">Status Perkawinan Saat Ini:</label>
+                        <select id="status_kawin" required>
+                            <option value="">-- Pilih --</option>
+                            <option value="Belum Menikah">Belum Menikah</option>
+                            <option value="Cerai Hidup">Cerai Hidup</option>
+                            <option value="Cerai Mati">Cerai Mati</option>
+                        </select>
+                    </div>
+                `;
+            }
+        }
+        
+        // Fungsi untuk menghasilkan pratinjau surat
+        function generatePreview() {
+            const letterCategory = document.getElementById('letterCategory').value;
+            const nama = document.getElementById('nama').value;
+            const nik = document.getElementById('nik').value;
+            const tempat_lahir = document.getElementById('tempat_lahir').value;
+            const tanggal_lahir = document.getElementById('tanggal_lahir').value;
+            const jenis_kelamin = document.getElementById('jenis_kelamin').value;
+            const alamat = document.getElementById('alamat').value;
+            const pekerjaan = document.getElementById('pekerjaan').value;
+            const agama = document.getElementById('agama').value;
+            const keperluan = document.getElementById('keperluan').value;
+            
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('id-ID', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            
+            let specificContent = '';
+            
+            if (letterCategory === 'domisili') {
+                const alamat_domisili = document.getElementById('alamat_domisili').value;
+                const lama_tinggal = document.getElementById('lama_tinggal').value;
+                
+                specificContent = `
+                    Dengan ini menerangkan bahwa:
+                    
+                    Nama          : ${nama}
+                    NIK           : ${nik}
+                    Tempat/Tgl Lahir : ${tempat_lahir}, ${tanggal_lahir}
+                    Jenis Kelamin : ${jenis_kelamin}
+                    Alamat        : ${alamat_domisili}
+                    Pekerjaan     : ${pekerjaan}
+                    Agama         : ${agama}
+                    
+                    Bahwa yang bersangkutan benar-benar berdomisili di alamat tersebut di atas selama ${lama_tinggal} tahun.
+                    
+                    Surat keterangan ini diberikan untuk keperluan: ${keperluan}
+                `;
+            } else if (letterCategory === 'tidak_mampu') {
+                const penghasilan = document.getElementById('penghasilan').value;
+                const tanggungan = document.getElementById('tanggungan').value;
+                const alasan = document.getElementById('alasan').value;
+                
+                specificContent = `
+                    Dengan ini menerangkan bahwa:
+                    
+                    Nama          : ${nama}
+                    NIK           : ${nik}
+                    Tempat/Tgl Lahir : ${tempat_lahir}, ${tanggal_lahir}
+                    Jenis Kelamin : ${jenis_kelamin}
+                    Alamat        : ${alamat}
+                    Pekerjaan     : ${pekerjaan}
+                    Agama         : ${agama}
+                    
+                    Bahwa yang bersangkutan benar-benar termasuk keluarga tidak mampu dengan:
+                    - Penghasilan per bulan: Rp ${penghasilan}
+                    - Jumlah tanggungan keluarga: ${tanggungan} orang
+                    
+                    Alasan permohonan: ${alasan}
+                    
+                    Surat keterangan ini diberikan untuk keperluan: ${keperluan}
+                `;
+            } else if (letterCategory === 'usaha') {
+                const nama_usaha = document.getElementById('nama_usaha').value;
+                const jenis_usaha = document.getElementById('jenis_usaha').value;
+                const alamat_usaha = document.getElementById('alamat_usaha').value;
+                const lama_usaha = document.getElementById('lama_usaha').value;
+                
+                specificContent = `
+                    Dengan ini menerangkan bahwa:
+                    
+                    Nama          : ${nama}
+                    NIK           : ${nik}
+                    Tempat/Tgl Lahir : ${tempat_lahir}, ${tanggal_lahir}
+                    Jenis Kelamin : ${jenis_kelamin}
+                    Alamat        : ${alamat}
+                    Pekerjaan     : ${pekerjaan}
+                    Agama         : ${agama}
+                    
+                    Bahwa yang bersangkutan benar-benar memiliki usaha:
+                    - Nama Usaha: ${nama_usaha}
+                    - Jenis Usaha: ${jenis_usaha}
+                    - Alamat Usaha: ${alamat_usaha}
+                    - Lama Usaha: ${lama_usaha} tahun
+                    
+                    Surat keterangan ini diberikan untuk keperluan: ${keperluan}
+                `;
+            } else if (letterCategory === 'kematian') {
+                const nama_alm = document.getElementById('nama_alm').value;
+                const hubungan = document.getElementById('hubungan').value;
+                const tgl_kematian = document.getElementById('tgl_kematian').value;
+                const tempat_kematian = document.getElementById('tempat_kematian').value;
+                const penyebab = document.getElementById('penyebab').value;
+                
+                specificContent = `
+                    Dengan ini menerangkan bahwa:
+                    
+                    Nama Almarhum/Almarhumah : ${nama_alm}
+                    Hubungan dengan Pemohon  : ${hubungan}
+                    Tanggal Kematian        : ${tgl_kematian}
+                    Tempat Kematian         : ${tempat_kematian}
+                    Penyebab Kematian       : ${penyebab}
+                    
+                    Bahwa yang tersebut di atas benar-benar telah meninggal dunia.
+                    
+                    Surat keterangan ini diberikan untuk keperluan: ${keperluan}
+                `;
+            } else if (letterCategory === 'belum_menikah') {
+                const status_kawin = document.getElementById('status_kawin').value;
+                
+                specificContent = `
+                    Dengan ini menerangkan bahwa:
+                    
+                    Nama          : ${nama}
+                    NIK           : ${nik}
+                    Tempat/Tgl Lahir : ${tempat_lahir}, ${tanggal_lahir}
+                    Jenis Kelamin : ${jenis_kelamin}
+                    Alamat        : ${alamat}
+                    Pekerjaan     : ${pekerjaan}
+                    Agama         : ${agama}
+                    
+                    Bahwa yang bersangkutan benar-benar berstatus ${status_kawin}.
+                    
+                    Surat keterangan ini diberikan untuk keperluan: ${keperluan}
+                `;
+            }
+            
+            const preview = `
+                KOP DESA
+                (Logo dan identitas desa)
+                
+                SURAT KETERANGAN
+                Nomor: .../.../.../${new Date().getFullYear()}
+                
+                Yang bertanda tangan di bawah ini Kepala Desa ... menerangkan bahwa:
+                
+                ${specificContent}
+                
+                Demikian surat keterangan ini dibuat dengan sebenarnya untuk dipergunakan sebagaimana mestinya.
+                
+                Dikeluarkan di: ...
+                Pada tanggal: ${formattedDate}
+                
+                
+                Kepala Desa,
+                
+                
+                
+                (Nama Kepala Desa)
+                NIP: ...
+            `;
+            
+            document.getElementById('letterPreview').textContent = preview;
+        }
+        
+        // Fungsi untuk mengajukan surat ke database
+        function submitLetter() {
+            const letterCategory = document.getElementById('letterCategory').value;
+            const nama = document.getElementById('nama').value;
+            const nik = document.getElementById('nik').value;
+            const tempat_lahir = document.getElementById('tempat_lahir').value;
+            const tanggal_lahir = document.getElementById('tanggal_lahir').value;
+            const jenis_kelamin = document.getElementById('jenis_kelamin').value;
+            const alamat = document.getElementById('alamat').value;
+            const pekerjaan = document.getElementById('pekerjaan').value;
+            const agama = document.getElementById('agama').value;
+            const no_hp = document.getElementById('no_hp').value;
+            const keperluan = document.getElementById('keperluan').value;
+            
+            // Ambil data spesifik berdasarkan jenis surat
+            let specificData = {};
+            
+            if (letterCategory === 'domisili') {
+                specificData = {
+                    alamat_domisili: document.getElementById('alamat_domisili').value,
+                    lama_tinggal: document.getElementById('lama_tinggal').value
+                };
+            } else if (letterCategory === 'tidak_mampu') {
+                specificData = {
+                    penghasilan: document.getElementById('penghasilan').value,
+                    tanggungan: document.getElementById('tanggungan').value,
+                    alasan: document.getElementById('alasan').value
+                };
+            } else if (letterCategory === 'usaha') {
+                specificData = {
+                    nama_usaha: document.getElementById('nama_usaha').value,
+                    jenis_usaha: document.getElementById('jenis_usaha').value,
+                    alamat_usaha: document.getElementById('alamat_usaha').value,
+                    lama_usaha: document.getElementById('lama_usaha').value
+                };
+            } else if (letterCategory === 'kematian') {
+                specificData = {
+                    nama_alm: document.getElementById('nama_alm').value,
+                    hubungan: document.getElementById('hubungan').value,
+                    tgl_kematian: document.getElementById('tgl_kematian').value,
+                    tempat_kematian: document.getElementById('tempat_kematian').value,
+                    penyebab: document.getElementById('penyebab').value
+                };
+            } else if (letterCategory === 'belum_menikah') {
+                specificData = {
+                    status_kawin: document.getElementById('status_kawin').value
+                };
+            }
+            
+            // Buat objek data surat
+            const letterData = {
+                jenis_surat: letterCategory,
+                data_pemohon: {
+                    nama,
+                    nik,
+                    tempat_lahir,
+                    tanggal_lahir,
+                    jenis_kelamin,
+                    alamat,
+                    pekerjaan,
+                    agama,
+                    no_hp
+                },
+                keperluan: keperluan,
+                data_spesifik: specificData,
+                tanggal_pengajuan: new Date().toISOString(),
+                status: 'menunggu'
+            };
+            
+            // Simpan ke Firebase Realtime Database
+            const newLetterRef = database.ref('surat_keterangan').push();
+            newLetterRef.set(letterData)
+                .then(() => {
+                    showNotification('Surat berhasil diajukan! Anda akan diarahkan ke beranda...', 'success');
+                    // Redirect ke dashboard setelah 3 detik
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 3000);
+                })
+                .catch(error => {
+                    showNotification('Gagal mengajukan surat: ' + error.message, 'error');
+                });
+        }
+        
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification ' + type;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kecamatan Papar - Portal Resmi Kecamatan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: rgba(34, 139, 34, 0.8);
+            --secondary-color: rgba(50, 205, 50, 0.8);
+            --accent-color: rgba(144, 238, 144, 0.8);
+            --text-color: rgba(255, 255, 255, 0.9);
+            --light-color: rgba(243, 244, 246, 0.8);
+            --dark-color: rgba(31, 41, 55, 0.8);
+            --success-color: rgba(16, 185, 129, 0.8);
+            --danger-color: rgba(239, 68, 68, 0.8);
+            --blur-amount: 12px;
+            --glass-border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        @font-face {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a3e1a 0%, #2a5a2a 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+
+        /* Floating background elements */
+        .bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .bg-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            background: var(--primary-color);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .bg-element:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            background: var(--secondary-color);
+            top: 60%;
+            left: 70%;
+            animation-delay: 3s;
+        }
+
+        .bg-element:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            background: var(--accent-color);
+            top: 30%;
+            left: 50%;
+            animation-delay: 6s;
+        }
+
+        .bg-element:nth-child(4) {
+            width: 350px;
+            height: 350px;
+            background: var(--success-color);
+            top: 70%;
+            left: 20%;
+            animation-delay: 9s;
+        }
+
+        .bg-element:nth-child(5) {
+            width: 250px;
+            height: 250px;
+            background: var(--danger-color);
+            top: 10%;
+            left: 80%;
+            animation-delay: 12s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(10%, 15%) rotate(5deg);
+            }
+
+            50% {
+                transform: translate(-5%, 20%) rotate(-5deg);
+            }
+
+            75% {
+                transform: translate(15%, -10%) rotate(8deg);
+            }
+        }
+
+        /* Glassmorphism base styles */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(var(--blur-amount));
+            -webkit-backdrop-filter: blur(var(--blur-amount));
+            border-radius: 15px;
+            border: var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.18);
+        }
+
+        .glass-light {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .glass-dark {
+            background: rgba(31, 41, 55, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header with glassmorphism */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            transition: all 0.5s ease;
+        }
+
+        header.scrolled {
+            background: rgba(34, 139, 34, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 24px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .logo img {
+            margin-right: 10px;
+            height: 40px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(34, 139, 34, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(34, 139, 34, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* Hero Section with advanced animations */
+        .hero {
+            padding-top: 180px;
+            padding-bottom: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(50, 205, 50, 0.1) 0%, transparent 70%);
+            animation: pulse 8s infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-text {
+            width: 50%;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-text h1 {
+            font-size: 52px;
+            margin-bottom: 25px;
+            color: white;
+            line-height: 1.2;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 500px;
+        }
+
+        .hero-image {
+            width: 45%;
+            position: relative;
+            animation: floatImage 8s ease-in-out infinite;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateY(10deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image:hover img {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.05);
+        }
+
+        @keyframes floatImage {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Animated CTA button */
+        .cta-btn {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cta-btn:hover::after {
+            opacity: 1;
+        }
+
+        /* Features Section with 3D tilt effect */
+        .features {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title h2 {
+            font-size: 42px;
+            color: white;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-title p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            padding: 40px 30px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            transform: translateZ(-1px);
+            z-index: -1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.03);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            font-size: 30px;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .feature-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .feature-link i {
+            margin-left: 8px;
+            transition: transform 0.3s;
+        }
+
+        .feature-link:hover {
+            color: white;
+        }
+
+        .feature-link:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .services::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.1) 0%, transparent 100%);
+            z-index: -1;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .service-card {
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            transform: translateZ(-1px);
+            z-index: -1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+        }
+
+        .service-card h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .service-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .service-features li:first-child {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Testimonials with parallax effect */
+        .testimonials {
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.2) 0%, transparent 100%);
+            z-index: -1;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            padding: 40px 30px;
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            transform: translateZ(-1px);
+            z-index: -1;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .testimonial-content {
+            margin-bottom: 30px;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .testimonial-content::before,
+        .testimonial-content::after {
+            content: '"';
+            font-size: 60px;
+            color: rgba(255, 255, 255, 0.1);
+            position: absolute;
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .testimonial-content::before {
+            top: -20px;
+            left: -10px;
+        }
+
+        .testimonial-content::after {
+            bottom: -50px;
+            right: -10px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .author-info p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        /* CTA Section with particle animation */
+        .cta {
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            z-index: -2;
+        }
+
+        .cta::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z"></path></svg>');
+            background-size: cover;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: floatParticles 15s infinite linear;
+        }
+
+        @keyframes floatParticles {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .cta h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .cta p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .btn-light {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary-color);
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-light:hover {
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Footer with wave animation */
+        footer {
+            padding: 100px 0 30px;
+            position: relative;
+        }
+
+        .footer-wave {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%23228B22"></path><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%23228B22"></path><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23228B22"></path></svg>');
+            background-size: cover;
+            background-repeat: no-repeat;
+            transform: rotate(180deg);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-logo span {
+            color: var(--accent-color);
+        }
+
+        .footer-about p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(50, 205, 50, 0.3);
+        }
+
+        .footer-links h4 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+
+        /* Authentication Modal with glass effect */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            width: 450px;
+            max-width: 90%;
+            position: relative;
+            animation: modalFadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s;
+            z-index: 1;
+        }
+
+        .close-modal:hover {
+            color: white;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            color: rgba(255, 255, 255, 0.7);
+            position: relative;
+        }
+
+        .auth-tab.active {
+            color: white;
+        }
+
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(144, 238, 144, 0.3);
+        }
+
+        .form-actions {
+            margin-top: 30px;
+        }
+
+        .btn-block {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 25px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .form-footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .form-footer a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        /* Loading Spinner with animation */
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top: 5px solid var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero-text h1 {
+                font-size: 42px;
+            }
+
+            .section-title h2 {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+            }
+
+            .hero-text,
+            .hero-image {
+                width: 100%;
+                text-align: center;
+            }
+
+            .hero-text {
+                margin-bottom: 50px;
+            }
+
+            .hero-image {
+                margin-top: 0;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-text h1 {
+                font-size: 36px;
+            }
+
+            .section-title h2 {
+                font-size: 32px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding-top: 150px;
+            }
+
+            .hero-text h1 {
+                font-size: 32px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+            }
+
+            .auth-tabs {
+                justify-content: center;
+            }
+
+            .auth-tab {
+                padding: 15px;
+            }
+        }
+
+        /* Mobile Menu with glass effect */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+            z-index: 101;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            z-index: 99;
+            backdrop-filter: blur(var(--blur-amount));
+            -webkit-backdrop-filter: blur(var(--blur-amount));
+            background: rgba(34, 139, 34, 0.7);
+            border-bottom: var(--glass-border);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 15px;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            display: block;
+            padding: 12px 0;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .mobile-menu .auth-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Village specific styles */
+        .village-map {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 30px;
+        }
+
+        .village-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .government-section {
+            margin-top: 80px;
+        }
+
+        .government-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .government-card {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .government-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .government-card h4 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .government-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+        }
+
+        .news-section {
+            margin-top: 80px;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .news-card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .news-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .news-card:hover .news-image img {
+            transform: scale(1.1);
+        }
+
+        .news-content {
+            padding: 25px;
+        }
+
+        .news-date {
+            color: var(--accent-color);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .news-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .news-excerpt {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .read-more i {
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Floating background elements -->
+    <div class="bg-elements">
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+    </div>
+
+    <!-- Header -->
+    <header id="mainHeader">
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="LOGO_KABUPATEN_KEDIRI-removebg-preview.png" alt="Logo Kabupaten Kediri" width="65"
+                        height="95">Kecamatan<span>Papar</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#about">Tentang Kecamatan</a></li>
+                    <li><a href="#services">Pelayanan</a></li>
+                    <li><a href="#government">Pemerintahan</a></li>
+                    <li><a href="#news">Berita</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+
+                <div class="auth-buttons">
+                    <a href="#" class="btn btn-outline" id="loginBtn">Masuk</a>
+                    <a href="#" class="btn btn-primary" id="signupBtn">Daftar</a>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="#about">Tentang Kecamatan</a></li>
+            <li><a href="#services">Pelayanan</a></li>
+            <li><a href="#government">Pemerintahan</a></li>
+            <li><a href="#news">Berita</a></li>
+            <li><a href="#contact">Kontak</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <a href="#" class="btn btn-outline" id="mobileLoginBtn">Masuk</a>
+            <a href="#" class="btn btn-primary" id="mobileSignupBtn">Daftar</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Selamat Datang di Kecamatan Papar</h1>
+                    <p>Kecamatan Papar adalah wilayah yang kaya akan potensi pertanian dan industri rumahan. Mari
+                        bersama membangun Papar yang mandiri dan berdaya saing.</p>
+                    <div class="cta-buttons">
+                        <a href="#services" class="btn btn-primary cta-btn">Layanan Kecamatan</a>
+                        <a href="#news" class="btn btn-outline">Berita Terkini</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="5ab76fbd-dfce-4d14-93d0-bff9e30ba73a_169.jpeg" alt="Pemandangan Desa">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="features" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tentang Kecamatan Papar</h2>
+                <p>Mengenal lebih dekat Kecamatan Papar dan potensi unggulannya di Kabupaten Kediri.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Potensi Pertanian</h3>
+                    <p>Kecamatan Papar dikenal sebagai daerah penghasil padi, tebu, dan hortikultura yang produktif.</p>
+                    <a href="#" class="feature-link">Lihat peta <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Sentra Industri Rumah Tangga</h3>
+                    <p>Berbagai produk unggulan seperti kerajinan bambu, tempe sanan, dan makanan olahan berasal dari
+                        wilayah ini.</p>
+                    <a href="#" class="feature-link">Kenali warga <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Lingkungan Asri</h3>
+                    <p>Kecamatan kami mempertahankan keasrian alam dengan program penghijauan dan pengelolaan sampah yang
+                        terpadu.</p>
+                    <a href="#" class="feature-link">Program lingkungan <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Kuliner Khas</h3>
+                    <p>Kecamatan Papar memiliki berbagai kuliner khas yang lezat dan unik, menjadi daya tarik wisata
+                        kuliner.</p>
+                    <a href="#" class="feature-link">Cicipi kuliner <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-monument"></i>
+                    </div>
+                    <h3>Budaya & Tradisi</h3>
+                    <p>Kami menjaga warisan budaya dan tradisi leluhur dengan berbagai kegiatan seni dan adat istiadat.
+                    </p>
+                    <a href="#" class="feature-link">Pelajari budaya <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Ekonomi Berkembang</h3>
+                    <p>Dengan UMKM yang kuat dan sektor pertanian yang maju, ekonomi Kecamatan terus menunjukkan perkembangan
+                        positif.</p>
+                    <a href="#" class="feature-link">Dukung UMKM <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Village Map -->
+            <div class="village-map glass">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126536.43931182477!2d112.1072411!3d-7.654766699999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e78506330764527%3A0xc399d337013718d9!2sKantor%20Kecamatan%20Papar!5e0!3m2!1sid!2sid!4v1746272430824!5m2!1sid!2sid"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pelayanan Kecamatan</h2>
+                <p>Berbagai layanan yang disediakan oleh pemerintah desa untuk masyarakat</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h3>Administrasi Kependudukan</h3>
+                    <ul class="service-features">
+                        <li>Pembuatan KTP</li>
+                        <li>Pembuatan KK</li>
+                        <li>Surat Keterangan Domisili</li>
+                        <li>Surat Keterangan Usaha</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline">Ajukan Layanan</a>
+                </div>
+
+                <div class="service-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>Bantuan Sosial</h3>
+                    <ul class="service-features">
+                        <li>Bantuan PKH</li>
+                        <li>Bantuan BLT</li>
+                        <li>Bantuan Lansia</li>
+                        <li>Bantuan Disabilitas</li>
+                        <li>Bantuan Pendidikan</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline">Ajukan Layanan</a>
+                </div>
+
+                <div class="service-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3>Perizinan</h3>
+                    <ul class="service-features">
+                        <li>Izin Mendirikan Bangunan</li>
+                        <li>Izin Usaha</li>
+                        <li>Surat Keterangan Tidak Mampu</li>
+                        <li>Surat Nikah/Belum</li>
+                        <li>Surat Keterangan Kematian</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline">Ajukan Layanan</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section" id="news">
+        <div class="container">
+            <div class="section-title">
+                <h2>Berita & Informasi</h2>
+                <p>Informasi seputar Kecamatan Papar dan desa-desa di dalamnya</p>
+            </div>
+
+            <div class="news-grid">
+                <div class="news-card glass">
+                    <div class="news-image">
+                        <img src="https://images.openai.com/thumbnails/0659a13eb72f58739d6b6097788af6a9.jpeg"
+                            alt="Peta Kecamatan Papar">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date">2 Mei 2025</div>
+                        <h3 class="news-title">Peta Wilayah Administratif</h3>
+                        <p class="news-excerpt">Kecamatan Papar terdiri dari 17 desa termasuk Janti, Jambangan, dan
+                            Kedungmalang. Peta ini membantu mengenal letak dan batas wilayah masing-masing desa.</p>
+                        <a href="#" class="read-more">Lihat peta lengkap <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="news-card glass">
+                    <div class="news-image">
+                        <img src="74336507_115401869916564_1630233624076877824_n.jpg"
+                            alt="Taman Desa Kepuh">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date">24 April 2025</div>
+                        <h3 class="news-title">Taman Edu-Wisata Desa Kepuh</h3>
+                        <p class="news-excerpt">Bekas lahan perkemahan di Desa Kepuh kini disulap menjadi taman desa dan
+                            hutan edukatif yang menjadi daya tarik wisata baru di Papar.</p>
+                        <a href="#" class="read-more">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="news-card glass">
+                    <div class="news-image">
+                        <img src="https://betanews.id/wp-content/uploads/2021/04/20210330_BETANEWS_KDW_Keripik-Sandariya-2.jpg"
+                            alt="Produksi Kerupuk Papar">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date">18 April 2025</div>
+                        <h3 class="news-title">Sentra Kerupuk Sadariyah</h3>
+                        <p class="news-excerpt">Desa di wilayah Papar dikenal memproduksi kerupuk sadariyah khas Kediri
+                            yang berbahan dasar ketela, menjadi ikon UMKM lokal.</p>
+                        <a href="#" class="read-more">Lihat kegiatan UMKM <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <!-- Particle animation elements -->
+            <div class="particles" id="particles"></div>
+
+            <h2>Bangun Papar Bersama</h2>
+            <p>Ayo berpartisipasi aktif dalam program pembangunan dan pelestarian lingkungan di Kecamatan Papar!</p>
+            <a href="#" class="btn btn-light">Gabung Relawan</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-wave"></div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Kecamatan <span>Papar</span></div>
+                    <p>Kecamatan Papar merupakan bagian dari Kabupaten Kediri, Jawa Timur. Dikenal dengan potensi
+                        pertanian dan UMKM-nya, Papar terus berkembang menjadi wilayah yang produktif dan berdaya saing.
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Tautan Cepat</h4>
+                    <ul>
+                        <li><a href="#about">Tentang Papar</a></li>
+                        <li><a href="#services">Pelayanan</a></li>
+                        <li><a href="#government">Pemerintahan</a></li>
+                        <li><a href="#news">Berita</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="#">Administrasi</a></li>
+                        <li><a href="#">Bantuan Sosial</a></li>
+                        <li><a href="#">UMKM & Kewirausahaan</a></li>
+                        <li><a href="#">Pengaduan Masyarakat</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Kontak Kami</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Jl. Papar - Pare No. 229, Kediri</li>
+                        <li><i class="fas fa-phone"></i> 0858 6069 1223</li>
+                        <li><i class="fas fa-envelope"></i> kec.papar@kedirikab.go.id</li>
+                        <li><i class="fas fa-clock"></i> Senin - Jumat: 08.00 - 15.00</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Kelompok 5, Kecamatan Papar, Kediri. Semua Hak Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Authentication Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content glass">
+            <span class="close-modal">&times;</span>
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Masuk</div>
+                <div class="auth-tab" data-tab="signup">Daftar</div>
+            </div>
+
+            <div class="auth-forms">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" placeholder="Masukkan email Anda" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="Masukkan password Anda" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-block">Masuk</button>
+                    </div>
+
+                    <div class="form-footer">
+                        <p>Lupa password? <a href="#" id="forgotPassword">Reset di sini</a></p>
+                    </div>
+                </form>
+
+                <form id="signupForm" style="display: none;">
+                    <div class="form-group">
+                        <label for="signupName">Nama Lengkap</label>
+                        <input type="text" id="signupName" placeholder="Masukkan nama lengkap" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" placeholder="Masukkan email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" placeholder="Buat password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Konfirmasi Password</label>
+                        <input type="password" id="confirmPassword" placeholder="Konfirmasi password" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-block">Buat Akun</button>
+                    </div>
+
+                    <div class="form-footer">
+                        <p>Dengan mendaftar, Anda menyetujui <a href="#">Syarat & Ketentuan</a> dan <a
+                                href="#">Kebijakan Privasi</a> kami</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal" id="forgotPasswordModal">
+        <div class="modal-content glass">
+            <span class="close-modal">&times;</span>
+            <h3 style="margin-bottom: 20px; color: white;">Reset Password</h3>
+
+            <form id="resetPasswordForm">
+                <div class="form-group">
+                    <label for="resetEmail">Email</label>
+                    <input type="email" id="resetEmail" placeholder="Masukkan email Anda" required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-block">Kirim Link Reset</button>
+                </div>
+
+                <div class="form-footer">
+                    <p>Ingat password? <a href="#" id="backToLogin">Kembali ke login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Message Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content glass">
+            <span class="close-modal">&times;</span>
+            <div style="text-align: center; padding: 20px 0;">
+                <div style="font-size: 48px; color: var(--success-color); margin-bottom: 20px;">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 style="margin-bottom: 15px; color: white;" id="successTitle">Berhasil!</h3>
+                <p id="successMessage">Permintaan Anda telah berhasil diproses.</p>
+                <div class="form-actions" style="margin-top: 30px;">
+                    <button class="btn btn-primary btn-block" id="successBtn">Lanjutkan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Message Modal -->
+    <div class="modal" id="errorModal">
+        <div class="modal-content glass">
+            <span class="close-modal">&times;</span>
+            <div style="text-align: center; padding: 20px 0;">
+                <div style="font-size: 48px; color: var(--danger-color); margin-bottom: 20px;">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <h3 style="margin-bottom: 15px; color: var(--danger-color);">Error</h3>
+                <p id="errorMessage">Terjadi kesalahan. Silakan coba lagi.</p>
+                <div class="form-actions" style="margin-top: 30px;">
+                    <button class="btn btn-primary btn-block" id="errorBtn">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="modal" id="loadingModal">
+        <div class="modal-content"
+            style="background-color: transparent; box-shadow: none; display: flex; justify-content: center; align-items: center;">
+            <div class="glass" style="padding: 40px; border-radius: 15px; text-align: center;">
+                <div class="loading-spinner"></div>
+                <p style="color: white; font-weight: 500; margin-top: 20px;">Memproses...</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import {
+            getAuth,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            signOut,
+            onAuthStateChanged,
+            sendPasswordResetEmail
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import {
+            getDatabase,
+            ref,
+            set,
+            get,
+            onValue,
+            off,
+            push,
+            update
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+        import {
+            getFirestore,
+            collection,
+            doc,
+            setDoc,
+            getDoc,
+            addDoc,
+            updateDoc,
+            onSnapshot
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAEyyQvtGV9UtFFASxhKFhtUu5WaCY-7YM",
+            authDomain: "web-menajemen-keuangan.firebaseapp.com",
+            databaseURL: "https://web-menajemen-keuangan-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "web-menajemen-keuangan",
+            storageBucket: "web-menajemen-keuangan.firebasestorage.app",
+            messagingSenderId: "701529272865",
+            appId: "1:701529272865:web:3acaab7a2931905f152960",
+            measurementId: "G-G226XMT0TC"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+        const firestore = getFirestore(app);
+
+        // Global modals object
+        const modals = {
+            auth: document.getElementById('authModal'),
+            forgotPassword: document.getElementById('forgotPasswordModal'),
+            success: document.getElementById('successModal'),
+            error: document.getElementById('errorModal'),
+            loading: document.getElementById('loadingModal')
+        };
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function () {
+            createParticles();
+            setupModals();
+            setupEventListeners();
+            handleHeaderScroll(); // Initial check
+            setupAuthStateListener();
+        });
+
+        // =============================================
+        // UI Functions
+        // =============================================
+        function createParticles() {
+            const container = document.getElementById('particles');
+            if (!container) return;
+
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.bottom = `-${size}px`;
+
+                const duration = Math.random() * 10 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+
+                container.appendChild(particle);
+            }
+        }
+
+        function handleHeaderScroll() {
+            const header = document.getElementById('mainHeader');
+            if (!header) return;
+
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+
+        function setupModals() {
+            // Verify all modals exist
+            Object.values(modals).forEach(modal => {
+                if (!modal) console.error('Modal element not found');
+            });
+        }
+
+        function showModal(modal) {
+            if (!modal) return;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideModal(modal) {
+            if (!modal) return;
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function hideAllModals() {
+            Object.values(modals).forEach(modal => {
+                hideModal(modal);
+            });
+        }
+
+        function showSuccess(title, message) {
+            document.getElementById('successTitle').textContent = title;
+            document.getElementById('successMessage').textContent = message;
+            showModal(modals.success);
+        }
+
+        function showError(message) {
+            document.getElementById('errorMessage').textContent = message;
+            showModal(modals.error);
+        }
+
+        // =============================================
+        // Firebase Authentication Functions
+        // =============================================
+
+        async function registerUser(email, password, userData) {
+            try {
+                showModal(modals.loading);
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Save user data to both databases
+                await Promise.all([
+                    set(ref(database, 'users/' + user.uid), userData),
+                    setDoc(doc(firestore, "users", user.uid), userData)
+                ]);
+
+                hideModal(modals.loading);
+                showSuccess(
+                    'Akun Berhasil Dibuat!',
+                    'Akun Anda telah berhasil dibuat. Selamat datang di Desa Maju Makmur!'
+                );
+
+                return user;
+            } catch (error) {
+                hideModal(modals.loading);
+                showError(getFirebaseErrorMessage(error));
+                throw error;
+            }
+        }
+
+        async function loginUser(email, password) {
+            try {
+                showModal(modals.loading);
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                hideModal(modals.loading);
+
+                // Redirect to dashboard after successful login
+                window.location.href = 'dashboard.html';
+
+                return userCredential.user;
+            } catch (error) {
+                hideModal(modals.loading);
+                showError(getFirebaseErrorMessage(error));
+                throw error;
+            }
+        }
+
+        async function resetPassword(email) {
+            try {
+                showModal(modals.loading);
+                await sendPasswordResetEmail(auth, email);
+                hideModal(modals.loading);
+                showSuccess(
+                    'Email Reset Terkirim!',
+                    'Silakan periksa email Anda untuk instruksi reset password.'
+                );
+            } catch (error) {
+                hideModal(modals.loading);
+                showError(getFirebaseErrorMessage(error));
+                throw error;
+            }
+        }
+
+        function setupAuthStateListener() {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    console.log("User is signed in:", user.uid);
+                } else {
+                    console.log("User is signed out");
+                }
+            });
+        }
+
+        function getFirebaseErrorMessage(error) {
+            switch (error.code) {
+                case 'auth/email-already-in-use':
+                    return 'Email sudah digunakan. Silakan gunakan email lain.';
+                case 'auth/invalid-email':
+                    return 'Alamat email tidak valid.';
+                case 'auth/weak-password':
+                    return 'Password harus minimal 6 karakter.';
+                case 'auth/user-not-found':
+                case 'auth/wrong-password':
+                    return 'Email atau password salah.';
+                case 'auth/too-many-requests':
+                    return 'Terlalu banyak percobaan. Silakan coba lagi nanti.';
+                default:
+                    return error.message || 'Terjadi kesalahan. Silakan coba lagi.';
+            }
+        }
+
+        // =============================================
+        // Event Listeners and UI Handlers
+        // =============================================
+
+        function setupEventListeners() {
+            // Header scroll
+            window.addEventListener('scroll', handleHeaderScroll);
+
+            // Modal close buttons
+            document.querySelectorAll('.close-modal').forEach(button => {
+                button.addEventListener('click', hideAllModals);
+            });
+
+            // Success/Error modal buttons
+            document.getElementById('successBtn')?.addEventListener('click', () => hideModal(modals.success));
+            document.getElementById('errorBtn')?.addEventListener('click', () => hideModal(modals.error));
+
+            // Auth tabs switching
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.addEventListener('click', function () {
+                    const tabName = this.dataset.tab;
+                    switchAuthTab(tabName);
+                });
+            });
+
+            // Form submissions
+            document.getElementById('loginForm')?.addEventListener('submit', handleLogin);
+            document.getElementById('signupForm')?.addEventListener('submit', handleSignup);
+            document.getElementById('resetPasswordForm')?.addEventListener('submit', handleResetPassword);
+
+            // Login/Signup buttons
+            setupAuthButtons();
+
+            // Forgot password links
+            document.getElementById('forgotPassword')?.addEventListener('click', function (e) {
+                e.preventDefault();
+                hideModal(modals.auth);
+                showModal(modals.forgotPassword);
+            });
+
+            document.getElementById('backToLogin')?.addEventListener('click', function (e) {
+                e.preventDefault();
+                hideModal(modals.forgotPassword);
+                showModal(modals.auth);
+                switchAuthTab('login');
+            });
+
+            // Mobile menu toggle
+            document.getElementById('mobileMenuBtn')?.addEventListener('click', function () {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu) {
+                    mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
+                }
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function (e) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu && mobileMenu.style.display === 'block' &&
+                    !e.target.closest('.mobile-menu') &&
+                    !e.target.classList.contains('mobile-menu-btn')) {
+                    mobileMenu.style.display = 'none';
+                }
+            });
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                if (!anchor.classList.contains('btn') && anchor.getAttribute('href') !== '#') {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        if (targetId === '#') return;
+
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        function setupAuthButtons() {
+            const authButtons = [
+                { id: 'loginBtn', tab: 'login' },
+                { id: 'signupBtn', tab: 'signup' },
+                { id: 'mobileLoginBtn', tab: 'login' },
+                { id: 'mobileSignupBtn', tab: 'signup' }
+            ];
+
+            authButtons.forEach(btn => {
+                const element = document.getElementById(btn.id);
+                if (element) {
+                    element.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        showModal(modals.auth);
+                        switchAuthTab(btn.tab);
+
+                        const mobileMenu = document.getElementById('mobileMenu');
+                        if (mobileMenu && mobileMenu.style.display === 'block') {
+                            mobileMenu.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        }
+
+        function switchAuthTab(tabName) {
+            const authTabs = document.querySelectorAll('.auth-tab');
+            authTabs.forEach(tab => {
+                if (tab.dataset.tab === tabName) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+
+            if (loginForm) loginForm.style.display = tabName === 'login' ? 'block' : 'none';
+            if (signupForm) signupForm.style.display = tabName === 'signup' ? 'block' : 'none';
+        }
+
+        // =============================================
+        // Form Handlers
+        // =============================================
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                await loginUser(email, password);
+            } catch (error) {
+                console.error("Login failed:", error);
+            }
+        }
+
+        async function handleSignup(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Basic validation
+            if (password !== confirmPassword) {
+                showError("Password tidak cocok");
+                return;
+            }
+
+            if (password.length < 6) {
+                showError("Password harus minimal 6 karakter");
+                return;
+            }
+
+            const userData = {
+                name: name,
+                email: email,
+                createdAt: new Date().toISOString(),
+                role: "warga",
+                address: ""
+            };
+
+            try {
+                await registerUser(email, password, userData);
+                // Clear form after successful registration
+                e.target.reset();
+            } catch (error) {
+                console.error("Registration failed:", error);
+            }
+        }
+
+        async function handleResetPassword(e) {
+            e.preventDefault();
+            const email = document.getElementById('resetEmail').value;
+
+            try {
+                await resetPassword(email);
+                e.target.reset();
+            } catch (error) {
+                console.error("Password reset failed:", error);
+            }
+        }
+    </script>
+</body>
+
+</html>
